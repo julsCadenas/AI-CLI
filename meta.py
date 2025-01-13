@@ -1,4 +1,12 @@
 #!/usr/bin/env python
+
+'''
+TO DO:
+- make the output more colorful
+- add more styling for outputs especially markdowns
+
+'''
+
 import requests
 import os
 import typer
@@ -44,16 +52,18 @@ def main(query):
     print(f"[bold blue]You:[/bold blue] {query}")
     if '```' in response:
         parts = response.split('```')
+        # formatted_response = []
         print(f"[bold red]MetaAI:[/bold red]")
         for i, part in enumerate(parts):
             if i % 2 == 0:
                 print(part.strip())
+                # formatted_response.append(part.strip())
             else:
                 lines = part.strip().split("\n", 1)
                 # language = lines[0] if len(lines) > 1 and lines[0] else "plaintext"
                 code = "\n".join(lines[1:]) if len(lines) > 1 else part.strip()
                 syntax = Syntax(code, "python", theme="dracula", line_numbers=True)
-                print("\n",syntax,"\n")
+                print(syntax)
     else:
         print(f"[bold red]MetaAI:[/bold red] {response} \n")
     

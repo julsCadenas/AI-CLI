@@ -2,8 +2,9 @@
 
 '''
 TO DO:
-- make the output more colorful
-- add more styling for outputs especially markdowns
+- add history
+- make it fully conversational
+- make it automated
 
 '''
 
@@ -12,6 +13,7 @@ import os
 import typer
 from rich import print
 from rich.syntax import Syntax
+from rich.markdown import Markdown
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -53,17 +55,19 @@ def main(query):
     if '```' in response:
         parts = response.split('```')
         # formatted_response = []
-        print(f"[bold red]MetaAI:[/bold red]")
+        print(f"[bold red]MetaAI:[/bold red]", end=" ")
         for i, part in enumerate(parts):
             if i % 2 == 0:
-                print(part.strip())
+                # print(part.strip())
+                md = Markdown(part.strip())
+                print(md)
                 # formatted_response.append(part.strip())
             else:
                 lines = part.strip().split("\n", 1)
                 # language = lines[0] if len(lines) > 1 and lines[0] else "plaintext"
                 code = "\n".join(lines[1:]) if len(lines) > 1 else part.strip()
                 syntax = Syntax(code, "python", theme="dracula", line_numbers=True)
-                print(syntax)
+                print(syntax, "\n")
     else:
         print(f"[bold red]MetaAI:[/bold red] {response} \n")
     

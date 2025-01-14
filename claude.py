@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 import anthropic as claude
 import os
 from dotenv import load_dotenv

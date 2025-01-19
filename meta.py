@@ -17,7 +17,7 @@ from rich.markdown import Markdown
 from dotenv import load_dotenv
 load_dotenv()
 
-url = "https://api-inference.huggingface.co/models/meta-llama/Meta-Llama-3-8B-Instruct"
+url = os.getenv("llama_url")
 token = os.getenv("llama_token")
 
 def llm(query):
@@ -69,7 +69,9 @@ def main(query):
                 syntax = Syntax(code, "python", theme="dracula", line_numbers=True)
                 print(syntax, "\n")
     else:
-        print(f"[bold red]MetaAI:[/bold red] {response} \n")
+        md = Markdown(response.strip())
+        print("[bold red]MetaAI:[/bold red]", end=" ")
+        print(md,)
     
 
 if __name__ == "__main__":

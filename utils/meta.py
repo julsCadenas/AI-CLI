@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 import requests
 from rich import print
 from rich.syntax import Syntax

@@ -46,6 +46,9 @@ def llm(query):
   
     response = requests.post(url, headers=headers, json=payload)
     response_text = response.json()[0]['generated_text'].strip()
+    print(f"Response status code: {response.status_code}")
+    print(f"Response content: {response.text}")
+    print(f"Response JSON: {response.json()}")
 
     return response_text
 
@@ -54,14 +57,12 @@ def main(query):
     print(f"[bold blue]You:[/bold blue] {query}")
     if '```' in response:
         parts = response.split('```')
-        # formatted_response = []
         print(f"[bold red]MetaAI:[/bold red]", end=" ")
         for i, part in enumerate(parts):
             if i % 2 == 0:
                 # print(part.strip())
                 md = Markdown(part.strip())
                 print(md)
-                # formatted_response.append(part.strip())
             else:
                 lines = part.strip().split("\n", 1)
                 # language = lines[0] if len(lines) > 1 and lines[0] else "plaintext"
@@ -71,8 +72,9 @@ def main(query):
     else:
         md = Markdown(response.strip())
         print("[bold red]MetaAI:[/bold red]", end=" ")
-        print(md,)
+        print(md, "\n") 
     
 
 if __name__ == "__main__":
     typer.run(main)
+    

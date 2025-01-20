@@ -16,7 +16,7 @@ from rich.syntax import Syntax
 from rich.markdown import Markdown
 from dotenv import load_dotenv
 load_dotenv()
-
+ 
 url = os.getenv("llama_url")
 token = os.getenv("llama_token")
 
@@ -29,7 +29,7 @@ def llm(query):
         "return_full_text": False
     }
 
-    # prompt = f"""<|begin_of_text|><|start_header_id|>system<|end_header_id|>
+    # prompt = """<|begin_of_text|><|start_header_id|>system<|end_header_id|>
     #     You are a helpful and smart assistant. You accurately provide answer to the provided user query.<|eot_id|>
     #     <|start_header_id|>user<|end_header_id|> 
     #     Here is the query: ```{query}```.
@@ -71,6 +71,7 @@ def llm(query):
     return response_text
 
 def main(query):
+    print('test')
     response = llm(query)
     print(f"[bold blue]You:[/bold blue] {query}")
     if '```' in response:
@@ -92,7 +93,5 @@ def main(query):
         print("[bold red]MetaAI:[/bold red]", end=" ")
         print(md, "\n") 
     
-
 if __name__ == "__main__":
     typer.run(main)
-    

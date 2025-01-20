@@ -27,3 +27,8 @@
 - make meta ai have context awareness
 - make the terminal capable of accepting multiline inputs and pasted inputs
 
+### Notes
+- type ```meta``` in the terminal and will activate the llama chatbot in the terminal
+- type ```manai <command>``` 
+- type ```gpt``` in the terminal to call and activate thye chatgpt/openai chatbot in the terminal
+- try your best to implement an autocomplete feature

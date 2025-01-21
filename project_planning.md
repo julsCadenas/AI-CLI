@@ -23,8 +23,8 @@
         - `draft_codes.py`
 
 ## TO DO LIST
-- make meta ai fully conversational
-- make meta ai have context awareness
+- make meta ai fully conversational **DONE**
+- make meta ai have context awareness **DONE**
 - make the terminal capable of accepting multiline inputs and pasted inputs
 
 ### Notes

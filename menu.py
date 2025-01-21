@@ -1,9 +1,6 @@
 import sys
 from rich import print
 from utils.meta import Meta_AI
-from dotenv import load_dotenv
-
-load_dotenv()
 
 class Menu:
     def __init__(self, url, token):

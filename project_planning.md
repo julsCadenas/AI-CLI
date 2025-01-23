@@ -27,8 +27,9 @@
 - make meta ai have context awareness **DONE**
 - make the terminal capable of accepting multiline inputs and pasted inputs
 - make settings class/function 
-- add loading/progress indicators
+- refine settings
 - make the settings have terminal buttons(?)
+- add loading/progress indicators
 
 ### Notes
 - type ```meta``` in the terminal and will activate the llama chatbot in the terminal

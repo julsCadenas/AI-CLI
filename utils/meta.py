@@ -2,6 +2,7 @@ import requests
 from rich import print
 from rich.syntax import Syntax
 from rich.markdown import Markdown
+from utils.settings import Settings
 
 class Meta_AI():
     def __init__(self, url, token):
@@ -12,48 +13,21 @@ class Meta_AI():
             'Authorization': f'Bearer {token}',
             'Content-Type': 'application/json'
         }
-        self.parameters = {
-            "max_new_tokens": 5000,
-            "temperature": 0.01,
-            "top_k": 50,
-            "top_p": 0.95,
-            "return_full_text": False
-        }
-    
+        self.context = "\n".join(self.history[-5:])
+        self.settings = Settings(query="", context=self.context)
+   
     def llm_query(self, query):
-        context = "\n".join(self.history[-5:])
-        # prompt = """<|begin_of_text|><|start_header_id|>system<|end_header_id|>
-        #     You are a helpful and smart assistant. You accurately provide answer to the provided user query.<|eot_id|>
-        #     <|start_header_id|>user<|end_header_id|> 
-        #     Here is the query: ```{query}```.
-        #     Provide precise and concise answer.<|eot_id|><|start_header_id|>assistant<|end_header_id|>"""
+        self.context = "\n".join(self.history[-5:])
+        self.settings = Settings(query=query, context=self.context)
+        self.prompt = self.settings.get_meta_prompt()
+        self.parameters = self.settings.get_meta_parameters()
         
-        # prompt = f"""
-        #     You are a helpful and smart assistant. You accurately provide answer to the provided user query.
-        #     Here is the conversation history: {context}
-        #     Here is the query: ```{query}```.
-        #     Provide precise and concise answer.
-        # """
-        
-        # prompt = f"""
-        #     You are a helpful and smart assistant. Here is the conversation history: 
-        #     {context}
-        #     Now respond to the latest query: 
-        #     ```{query}```.
-        # """
-        
-        prompt = f"""
-            You are a helpful and smart assistant. Here is the conversation history:
-            {context}
-            Now respond to the latest query as a human-like assistant, avoiding any meta-comments or prefixes:
-            ```{query}```.
-        """
-
+        prompt = self.prompt.format(query=query, context=self.context)   
         payload = {
             "inputs": prompt,
             "parameters": self.parameters
         }
-        
+       
         try:
             response = requests.post(self.url, headers=self.headers, json=payload)
             response_json = response.json()
@@ -70,8 +44,7 @@ class Meta_AI():
     def get_response(self, query, response):
         self.history.append(f"User: {query}")
         self.history.append(f"MetaAI: {response}")
-        
-        # print(f"[bold blue]You:[/bold blue] {query}")
+       
         if '```' in response:
             parts = response.split('```')
             print(f"[bold red]MetaAI:[/bold red]", end="")
@@ -85,7 +58,4 @@ class Meta_AI():
                     syntax = Syntax(code, "python", theme="dracula", line_numbers=True)
                     print(syntax)
         else:
-            # md = Markdown(response.strip())
             print("[bold red]MetaAI:[/bold red] ", response.strip())
-    
-        

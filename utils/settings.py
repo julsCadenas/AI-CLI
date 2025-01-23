@@ -75,9 +75,11 @@ class Settings():
         choice = input()
         if choice.lower() == "y":
             print("[bold green]Choose a template prompt:[bold green]")
-            for i in self.prompt_templates:
-                print(i)
-            
+            for i in range(self.prompt_templates):
+                print([i], " . ", self.prompt_templates[i])
+            template = int(input())
+            prompt = self.prompt_templates[template]
+            print(f"[bold green]Prompt set to: {prompt}[bold green]")  
         elif choice.lower() == "n":
             print ("[bold blue]Enter your prompt for the Meta AI:[bold blue] ")
             prompt = input()

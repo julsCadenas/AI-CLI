@@ -17,6 +17,10 @@ def meta():
     choice.meta()
 
 @app.command()
+def settings():
+    choice.settings()
+
+@app.command()
 def exit():
     choice.exit()
 

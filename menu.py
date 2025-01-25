@@ -1,7 +1,7 @@
 import sys
 from rich import print
 from utils.meta import Meta_AI
-from utils.settings import MetaSettings
+from utils.settings import Settings
 
 class Menu:
     def __init__(self, url, token):
@@ -34,3 +34,20 @@ class Menu:
             
             response = meta.llm_query(query)
             meta.get_response(query, response)
+    
+    def settings_choices(self, username: bool, change: bool, metaprompt: bool):
+        settings_manager = Settings()
+        
+        if metaprompt:
+            current_prompt = settings_manager.load_prompt()
+            if current_prompt:
+                print(f"[bold yellow]Current prompt:[/bold yellow] {current_prompt}")
+        elif username and not change:
+            current_username = settings_manager.load_username()
+            if current_username:
+                print(f"[bold yellow]Current username:[/bold yellow] {current_username}")
+        elif username and change:
+            settings_manager.handle_username_change(username, change)
+        else:
+            print("[bold red]settings --username --change[/bold red] to update.")
+

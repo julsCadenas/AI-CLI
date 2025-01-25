@@ -1,0 +1,15 @@
+{
+    "username": "Julian",
+    "parameters": {
+        "max_new_tokens": 5000,
+        "temperature": 0.01,
+        "top_k": 50,
+        "top_p": 0.95,
+        "return_full_text": false
+    },
+    "meta_prompt": "<|begin_of_text|><|start_header_id|>system<|end_header_id|> \n You are a helpful and smart assistant. You accurately provide answers to user queries while maintaining context.<|eot_id|> \n <|start_header_id|>user<|end_header_id|> \n The user's name is {username}. <|eot_id|> \n Here is the conversation history: {context} \n Now, respond to the latest query in a precise and concise manner: ```{query}```. \n <|eot_id|><|start_header_id|>assistant<|end_header_id|>",
+    "headers": {
+        "Authorization": "Bearer {token}",
+        "Content-Type": "application/json"
+    }
+}

@@ -2,13 +2,15 @@ import requests
 from rich import print
 from rich.syntax import Syntax
 from rich.markdown import Markdown
+from utils.settings import Settings
 
 class Meta_AI():
     def __init__(self, url, token):
         self.url = url
         self.token = token
         self.history = []
-        self.username = "Gaylord"
+        self.settings = Settings()
+        self.username = self.settings.load_username()
         self.headers = {
             'Authorization': f'Bearer {token}',
             'Content-Type': 'application/json',
@@ -26,20 +28,18 @@ class Meta_AI():
             "return_full_text": False
         }
         
-        prompt = f"""<|begin_of_text|><|start_header_id|>system<|end_header_id|>
-            <|begin_of_text|><|start_header_id|>system<|end_header_id|>
-            You are a helpful and smart assistant. You accurately provide answers to user queries while maintaining context.<|eot_id|>
-            <|start_header_id|>user<|end_header_id|>
-            The user's name is {username}. <|eot_id|>
-            Here is the conversation history: {context}
-            Now, respond to the latest query in a precise and concise manner: ```{query}```.
-            <|eot_id|><|start_header_id|>assistant<|end_header_id|>
-        """
+        prompt = self.settings.load_prompt().format(username=username, context=context, query=query)
+        # prompt = f"""You are a helpful and smart assistant. You accurately provide answers to user queries while maintaining context.
+        #         The user's name is {username}.
+        #         Here is the conversation history: {context}
+        #         Now, respond to the latest query in a precise and concise manner: ```{query}```.
+        # """
+         
                     
         payload = {
             "inputs": prompt,
             "parameters": parameters,
-            "add_generation_prompt": True 
+            # "add_generation_prompt": True 
         }
        
         try:

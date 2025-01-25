@@ -2,30 +2,44 @@ import requests
 from rich import print
 from rich.syntax import Syntax
 from rich.markdown import Markdown
-from utils.settings import Settings
 
 class Meta_AI():
     def __init__(self, url, token):
         self.url = url
         self.token = token
         self.history = []
+        self.username = "Gaylord"
         self.headers = {
             'Authorization': f'Bearer {token}',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
         }
-        self.context = "\n".join(self.history[-5:])
-        self.settings = Settings(query="", context=self.context)
-   
+
     def llm_query(self, query):
-        self.context = "\n".join(self.history[-5:])
-        self.settings = Settings(query=query, context=self.context)
-        self.prompt = self.settings.get_meta_prompt()
-        self.parameters = self.settings.get_meta_parameters()
+        context = "\n".join(self.history[-5:])
+        username = self.username
         
-        prompt = self.prompt.format(query=query, context=self.context)   
+        parameters = {
+            "max_new_tokens": 5000,
+            "temperature": 0.01,
+            "top_k": 50,
+            "top_p": 0.95,
+            "return_full_text": False
+        }
+        
+        prompt = f"""<|begin_of_text|><|start_header_id|>system<|end_header_id|>
+            <|begin_of_text|><|start_header_id|>system<|end_header_id|>
+            You are a helpful and smart assistant. You accurately provide answers to user queries while maintaining context.<|eot_id|>
+            <|start_header_id|>user<|end_header_id|>
+            The user's name is {username}. <|eot_id|>
+            Here is the conversation history: {context}
+            Now, respond to the latest query in a precise and concise manner: ```{query}```.
+            <|eot_id|><|start_header_id|>assistant<|end_header_id|>
+        """
+                    
         payload = {
             "inputs": prompt,
-            "parameters": self.parameters
+            "parameters": parameters,
+            "add_generation_prompt": True 
         }
        
         try:
@@ -35,7 +49,7 @@ class Meta_AI():
             return response_text
         except KeyError as e:
             print(f"[bold red]KeyError: {e}[/bold red]")
-            print(f"Response: {response.text}")
+            print(f"[bold red]Response:[bold red] {response.text}")
             return "Unexpected response format received from the server."
         except Exception as e:
             print(f"[bold red]An error occurred: {e}[/bold red]")

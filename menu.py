@@ -1,7 +1,7 @@
 import sys
 from rich import print
 from utils.meta import Meta_AI
-from utils.settings import Settings
+from utils.settings import MetaSettings
 
 class Menu:
     def __init__(self, url, token):
@@ -34,28 +34,3 @@ class Menu:
             
             response = meta.llm_query(query)
             meta.get_response(query, response)
-    
-    def settings(self):
-        settings = Settings(query=None, context=None)
-        print("[bold green]Settings:[bold green]")
-        print("[bold green]1. Set Username[bold green]")
-        print("[bold green]2. Set Meta AI Parameters[bold green]")
-        print("[bold green]3. Set Meta AI Prompt[bold green]")
-        print("[bold green]4. Restore to Default[bold green]")
-        print("[bold green]5. Exit[bold green]")
-        print("[bold green]Choose an option:[bold green] ", end="")
-        choice = input()
-        
-        if choice == "1":
-            settings.set_username()
-        elif choice == "2":
-            settings.set_meta_parameters()
-        elif choice == "3":
-            settings.set_meta_prompt()
-        elif choice == "4":
-            settings.restore_to_default()
-        elif choice == "5":
-            self.exit()
-        else:
-            print("[bold red]Invalid choice. Please try again.[bold red]")
-            self.settings()

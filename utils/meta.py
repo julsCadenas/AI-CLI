@@ -20,15 +20,16 @@ class Meta_AI():
         context = "\n".join(self.history[-5:])
         username = self.username
         
-        parameters = {
-            "max_new_tokens": 5000,
-            "temperature": 0.01,
-            "top_k": 50,
-            "top_p": 0.95,
-            "return_full_text": False
-        }
+        parameters = self.settings.load_meta_parameters()
+        # parameters = {
+        #     "max_new_tokens": 512,
+        #     "temperature": 0.03,
+        #     "top_k": 50,
+        #     "top_p": 0.95,
+        #     "return_full_text": False
+        # }
         
-        prompt = self.settings.load_prompt().format(username=username, context=context, query=query)
+        prompt = self.settings.load_meta_prompt().format(username=username, context=context, query=query)
         # prompt = f"""You are a helpful and smart assistant. You accurately provide answers to user queries while maintaining context.
         #         The user's name is {username}.
         #         Here is the conversation history: {context}

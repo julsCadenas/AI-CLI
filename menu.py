@@ -39,7 +39,7 @@ class Menu:
         settings_manager = Settings()
         
         if metaprompt:
-            current_prompt = settings_manager.load_prompt()
+            current_prompt = settings_manager.load_meta_prompt()
             if current_prompt:
                 print(f"[bold yellow]Current prompt:[/bold yellow] {current_prompt}")
         elif username and not change:

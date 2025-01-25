@@ -46,9 +46,16 @@ class Settings:
         else:
             print("[bold red]settings --username --change[/bold red] to update.")
 
-    def load_prompt(self):
+    def load_meta_prompt(self):
         if self.settings:
             return self.settings.get("meta_prompt", "Default prompt template not found.")
+        else:
+            print("[bold red]Settings not loaded properly![/bold red]")
+            return None
+    
+    def load_meta_parameters(self):
+        if self.settings:
+            return self.settings.get("parameters", {})
         else:
             print("[bold red]Settings not loaded properly![/bold red]")
             return None

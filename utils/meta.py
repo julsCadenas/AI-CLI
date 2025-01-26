@@ -11,10 +11,9 @@ class Meta_AI():
         self.history = []
         self.settings = Settings()
         self.username = self.settings.load_username()
-        self.headers = {
-            'Authorization': f'Bearer {token}',
-            'Content-Type': 'application/json',
-        }
+        self.headers = self.settings.load_meta_headers()
+        self.headers["Authorization"] = f"Bearer {self.token}"
+
 
     def llm_query(self, query):
         context = "\n".join(self.history[-5:])

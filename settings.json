@@ -8,7 +8,7 @@
         "return_full_text": false
     },
     "meta_prompt": "You are a helpful assistant. You accurately provide answers to user queries while maintaining context. The asker's name is {username}. Here is the conversation history: {context}. Now, respond to the latest query in a precise and concise manner: ```{query}```.",
-    "headers": {
+    "meta_headers": {
         "Authorization": "Bearer {token}",
         "Content-Type": "application/json"
     }

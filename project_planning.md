@@ -3,7 +3,7 @@
 
 ### Features
 - Integrate LLAMA (Meta AI) in the terminal **DONE**
-- Integrate ChatGPT (OpenAI) in the terminal
+- Integrate ChatGPT (OpenAI) in the terminal **UNSURE SINCE THIS IS PAID**
 - Try to add an autocomplete feature within the terminal using available AI/ML tools
 - Try to add add an AI version of the linux ```man``` command
 

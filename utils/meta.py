@@ -1,4 +1,5 @@
 import requests
+import os
 from rich import print
 from rich.syntax import Syntax
 from rich.markdown import Markdown
@@ -14,6 +15,12 @@ class Meta_AI():
         self.headers = self.settings.load_meta_headers()
         self.headers["Authorization"] = f"Bearer {self.token}"
 
+    def save_history(self):
+        path = self.settings.settings["meta_history_path"]
+        
+        with open(path, "a") as file:
+            for line in self.history:
+                file.write(line + "\n")
 
     def llm_query(self, query):
         context = "\n".join(self.history[-5:])
@@ -58,6 +65,7 @@ class Meta_AI():
     def get_response(self, query, response):
         self.history.append(f"User: {query}")
         self.history.append(f"MetaAI: {response}")
+        self.save_history()
        
         if '```' in response:
             parts = response.split('```')

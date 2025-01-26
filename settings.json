@@ -1,9 +1,9 @@
 {
     "username": "Julian",
     "parameters": {
-        "max_new_tokens": 75,
-        "temperature": 0.1,
-        "top_k": 40,
+        "max_new_tokens": 50,
+        "temperature": 0.03,
+        "top_k": 50,
         "top_p": 0.9,
         "return_full_text": false
     },
@@ -11,5 +11,6 @@
     "meta_headers": {
         "Authorization": "Bearer {token}",
         "Content-Type": "application/json"
-    }
+    },
+    "meta_history_path": "/home/jscadenas/aicli/utils/history.txt"
 }

@@ -26,13 +26,12 @@
 - make meta ai fully conversational **DONE**
 - make meta ai have context awareness **DONE**
 - make the terminal capable of accepting multiline inputs and pasted inputs
-- make settings class/function 
-- refine settings
-- make the settings have terminal buttons(?)
+- make settings class/function **DONE** 
 - add loading/progress indicators
+- fix llama prompt
+- fix keyboard controls in terminal when using app
 
 ### Notes
 - type ```meta``` in the terminal and will activate the llama chatbot in the terminal
 - type ```manai <command>``` 
-- type ```gpt``` in the terminal to call and activate thye chatgpt/openai chatbot in the terminal
 - try your best to implement an autocomplete feature

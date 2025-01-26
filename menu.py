@@ -35,7 +35,7 @@ class Menu:
             response = meta.llm_query(query)
             meta.get_response(query, response)
     
-    def settings_choices(self, username: bool, change: bool, metaprompt: bool, metaheaders: bool, metaparams: bool):
+    def settings_choices(self, username: bool, change: bool, metaprompt: bool, metaheaders: bool, metaparams: bool, metahistory: bool):
             settings_manager = Settings()
             
             if username:
@@ -62,3 +62,8 @@ class Menu:
                 else:
                     print(f"[bold yellow]Current meta parameters:[/bold yellow] {settings_manager.get_setting('parameters')}")
                 
+            if metahistory:
+                if change:
+                    settings_manager.handle_change("meta_history_path")
+                else:
+                    print(f"[bold yellow]Current meta history path:[/bold yellow] {settings_manager.get_setting('meta_history_path')}")

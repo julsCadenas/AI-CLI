@@ -5,7 +5,7 @@ class Settings:
     def __init__(self, settings_file = "settings.json"):
         self.settings_file = settings_file
         self.settings = self.load_settings()
-    
+        
     def load_settings(self):
         try:
             with open(self.settings_file, "r") as file:

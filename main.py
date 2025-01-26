@@ -22,9 +22,10 @@ def settings(
     change: bool = typer.Option(False, "--change", help="Suffix this to change the variables"),
     metaprompt: bool = typer.Option(False, "--metaprompt", help="Print the current prompt used by MetaAI"),
     metaheaders: bool = typer.Option(False, "--metaheaders", help="Print the current header used by MetaAI"),
-    metaparams: bool = typer.Option(False, "--metaparams", help="Print the current parameters used by MetaAI")
+    metaparams: bool = typer.Option(False, "--metaparams", help="Print the current parameters used by MetaAI"),
+    metahistory: bool = typer.Option(False, "--metahistory", help="Print the path to the meta conversation history logs"),
 ):
-    choice.settings_choices(username, change, metaprompt, metaheaders, metaparams)
+    choice.settings_choices(username, change, metaprompt, metaheaders, metaparams, metahistory)
 
 @app.command()
 def exit():

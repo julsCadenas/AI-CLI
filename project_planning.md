@@ -23,12 +23,12 @@
         - `draft_codes.py`
 
 ## TO DO LIST
+- fix llama prompt 
 - make meta ai fully conversational **DONE**
 - make meta ai have context awareness **DONE**
-- make the terminal capable of accepting multiline inputs and pasted inputs
 - make settings class/function **DONE** 
-- add loading/progress indicators
-- fix llama prompt
+- add loading/progress indicators **DONE**
+- make the terminal capable of accepting multiline inputs and pasted inputs
 - fix keyboard controls in terminal when using app
 
 ### Notes

@@ -1,13 +1,13 @@
 {
     "username": "Julian",
     "parameters": {
-        "max_new_tokens": 100,
+        "max_new_tokens": 1024,
         "temperature": 0.2,
         "top_k": 40,
         "top_p": 0.9,
         "return_full_text": true
     },
-    "meta_prompt": "You are a coding assistant, skilled in providing solutions, explaining concepts, and debugging code across multiple programming languages. The asker's name is {username}. Here is the conversation history: {context}. Now, respond to the latest query in a precise, clear, and concise manner, with any necessary code samples and explanations: ```{query}```.",
+    "meta_prompt": "You are a coding assistant skilled in providing solutions and explanations in various programming languages, especially Java, Python, and JavaScript. The asker's name is {username}. You are required to respond to the latest query in a clear, concise, and structured manner, focusing purely on solving the coding problem without including system or meta information. Please avoid repeating prompt structures, and include relevant code samples only. Here is the conversation history: {context}. The query is: ```{query}```.",
     "meta_headers": {
         "Authorization": "Bearer {token}",
         "Content-Type": "application/json"

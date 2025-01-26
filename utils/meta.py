@@ -1,9 +1,11 @@
 import requests
-import os
+import time
 from rich import print
 from rich.syntax import Syntax
 from rich.markdown import Markdown
+from rich.progress import Progress, SpinnerColumn, TextColumn
 from utils.settings import Settings
+
 
 class Meta_AI():
     def __init__(self, url, token):
@@ -48,19 +50,28 @@ class Meta_AI():
             "parameters": parameters,
             # "add_generation_prompt": True 
         }
-       
-        try:
-            response = requests.post(self.url, headers=self.headers, json=payload)
-            response_json = response.json()
-            response_text = response_json[0]['generated_text'].strip()
-            return response_text
-        except KeyError as e:
-            print(f"[bold red]KeyError: {e}[/bold red]")
-            print(f"[bold red]Response:[bold red] {response.text}")
-            return "Unexpected response format received from the server."
-        except Exception as e:
-            print(f"[bold red]An error occurred: {e}[/bold red]")
-            return "An error occurred while fetching the response."
+
+        with Progress(
+            SpinnerColumn(),
+            TextColumn("[bold green]Generating Response..."),
+            transient=True,
+        ) as progress:
+            task = progress.add_task("[cyan] Working...", total=100)
+
+            try:
+                response = requests.post(self.url, headers=self.headers, json=payload)
+                response_json = response.json()
+                response_text = response_json[0]['generated_text'].strip()
+                time.sleep(2)
+                progress.update(task, completed=100)
+                return response_text
+            except KeyError as e:
+                print(f"[bold red]KeyError: {e}[/bold red]")
+                print(f"[bold red]Response:[bold red] {response.text}")
+                return "Unexpected response format received from the server."
+            except Exception as e:
+                print(f"[bold red]An error occurred: {e}[/bold red]")
+                return "An error occurred while fetching the response."
 
     def get_response(self, query, response):
         self.history.append(f"User: {query}")

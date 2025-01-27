@@ -2,6 +2,7 @@ import sys
 from rich import print
 from utils.meta import Meta_AI
 from utils.settings import Settings
+from utils.helpers import Helpers
 
 class Menu:
     def __init__(self, url, token):
@@ -23,14 +24,29 @@ class Menu:
         meta = Meta_AI(url, token)
         
         print("[bold green]Welcome to the MetaAI chatbot! Type 'exit' to end the conversation.[/bold green]")
-
+        print("[bold yellow]Choose input mode: (1) Normal Mode (2) Multiline Mode: [/bold yellow]", end=" ")
+        mode = input()
+        mode = "multiline" if mode == "2" else "normal"
+        
+        print(f"[bold magenta]You are now in {mode.capitalize()} Mode. Type '/mode' to switch modes at any time.[/bold magenta]")
+        print("[bold green]Type 'exit' to end the conversation.[/bold green]")
+        
         while True:
-            print("[bold blue]You:[/bold blue]", end=" ")
-            query = input()
+            print(f"[bold blue]({mode.capitalize()} Mode) You:[/bold blue]", end=" ")
+            
+            if mode == "multiline":
+                query = Helpers.multiline_input()
+            else:
+                query = input().strip()
             
             if query.lower() == "exit":
                 print("[bold green]Goodbye! Have a great day![/bold green]")
                 break
+            
+            if query.lower() == "/mode":
+                mode = "multiline" if mode == "normal" else "normal"
+                print(f"[bold magenta]Switched to {mode.capitalize()} Mode.[/bold magenta]")
+                continue
             
             response = meta.llm_query(query)
             meta.get_response(query, response)

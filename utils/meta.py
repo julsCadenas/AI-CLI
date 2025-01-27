@@ -6,7 +6,6 @@ from rich.markdown import Markdown
 from rich.progress import Progress, SpinnerColumn, TextColumn
 from utils.settings import Settings
 
-
 class Meta_AI():
     def __init__(self, url, token):
         self.url = url

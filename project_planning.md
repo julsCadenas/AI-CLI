@@ -3,9 +3,6 @@
 
 ### Features
 - Integrate LLAMA (Meta AI) in the terminal **DONE**
-- Integrate ChatGPT (OpenAI) in the terminal **UNSURE SINCE THIS IS PAID**
-- Try to add an autocomplete feature within the terminal using available AI/ML tools
-- Try to add add an AI version of the linux ```man``` command
 
 ### Folder Structure
 - `root/`
@@ -28,7 +25,7 @@
 - make meta ai have context awareness **DONE**
 - make settings class/function **DONE** 
 - add loading/progress indicators **DONE**
-- make the terminal capable of accepting multiline inputs and pasted inputs
+- make the terminal capable of accepting multiline inputs and pasted inputs **DONE**
 - fix keyboard controls in terminal when using app
 
 ### Notes

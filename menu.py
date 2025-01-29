@@ -8,6 +8,7 @@ class Menu:
     def __init__(self, url, token):
         self.url = url
         self.token = token
+        self.mode = "normal"
     
     def exit(self):  
         print("[bold cyan]Goodbye![/bold cyan]")
@@ -16,6 +17,7 @@ class Menu:
     def meta(self):  
         url = self.url
         token = self.token
+        mode = self.mode
         
         if not url or not token:
             print("[bold red]Error: Missing URL or token from environment variables[/bold red]")
@@ -23,13 +25,12 @@ class Menu:
 
         meta = Meta_AI(url, token)
         
-        print("[bold green]Welcome to the MetaAI chatbot! Type 'exit' to end the conversation.[/bold green]")
-        print("[bold yellow]Choose input mode: (1) Normal Mode (2) Multiline Mode: [/bold yellow]", end=" ")
-        mode = input()
-        mode = "multiline" if mode == "2" else "normal"
+        print("[bold green]Welcome to the MetaAI chatbot! Type '/exit' to end the conversation.[/bold green]")
+        print(f"[bold yellow]You are currently on {mode.capitalize()} Mode. Type '/mode' to switch [/bold yellow]")
+        # mode = input()
         
-        print(f"[bold magenta]You are now in {mode.capitalize()} Mode. Type '/mode' to switch modes at any time.[/bold magenta]")
-        print("[bold green]Type 'exit' to end the conversation.[/bold green]")
+        # print(f"[bold magenta]You are now in {mode.capitalize()} Mode. Type '/mode' to switch modes at any time.[/bold magenta]")
+        # print("[bold green]Type 'exit' to end the conversation.[/bold green]")
         
         while True:
             print(f"[bold blue]({mode.capitalize()} Mode) You:[/bold blue]", end=" ")
@@ -39,13 +40,13 @@ class Menu:
             else:
                 query = input().strip()
             
-            if query.lower() == "exit":
-                print("[bold green]Goodbye! Have a great day![/bold green]")
+            if query.lower() == "/exit":
+                print("\n[bold green]Goodbye! Have a great day![/bold green]")
                 break
             
             if query.lower() == "/mode":
                 mode = "multiline" if mode == "normal" else "normal"
-                print(f"[bold magenta]Switched to {mode.capitalize()} Mode.[/bold magenta]")
+                print(f"\n[bold magenta]Switched to {mode.capitalize()} Mode.[/bold magenta]")
                 continue
             
             response = meta.llm_query(query)

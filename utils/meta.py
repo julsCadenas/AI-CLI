@@ -26,24 +26,8 @@ class Meta_AI():
     def llm_query(self, query):
         context = "\n".join(self.history[-5:])
         username = self.username
-        
         parameters = self.settings.load_meta_parameters()
-        # parameters = {
-        #     "max_new_tokens": 512,
-        #     "temperature": 0.03,
-        #     "top_k": 50,
-        #     "top_p": 0.95,
-        #     "return_full_text": False
-        # }
-        
         prompt = self.settings.load_meta_prompt().format(username=username, context=context, query=query)
-        # prompt = f"""You are a helpful and smart assistant. You accurately provide answers to user queries while maintaining context.
-        #         The user's name is {username}.
-        #         Here is the conversation history: {context}
-        #         Now, respond to the latest query in a precise and concise manner: ```{query}```.
-        # """
-         
-                    
         payload = {
             "inputs": prompt,
             "parameters": parameters,
@@ -73,10 +57,13 @@ class Meta_AI():
                 return "An error occurred while fetching the response."
 
     def get_response(self, query, response):
+        query = query.strip()
+        if any(f"User: {query}" in entry for entry in self.history):
+            return  
         self.history.append(f"User: {query}")
         self.history.append(f"MetaAI: {response}")
         self.save_history()
-       
+
         if '```' in response:
             parts = response.split('```')
             print(f"[bold red]MetaAI:[/bold red]", end="")

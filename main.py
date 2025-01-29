@@ -24,8 +24,9 @@ def settings(
     metaheaders: bool = typer.Option(False, "--metaheaders", help="Print the current header used by MetaAI"),
     metaparams: bool = typer.Option(False, "--metaparams", help="Print the current parameters used by MetaAI"),
     metahistory: bool = typer.Option(False, "--metahistory", help="Print the path to the meta conversation history logs"),
+    clear: bool = typer.Option(False, "--clear", help="Clears the history file")
 ):
-    choice.settings_choices(username, change, metaprompt, metaheaders, metaparams, metahistory)
+    choice.settings_choices(username, change, metaprompt, metaheaders, metaparams, metahistory, clear)
 
 @app.command()
 def exit():

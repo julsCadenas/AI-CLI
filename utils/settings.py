@@ -73,4 +73,12 @@ class Settings:
     
     def get_setting(self, key: str):
         return self.settings.get(key, "Not Set")
+    
+    def clear_history(self):
+        try:
+            with open(self.settings["meta_history_path"], "w") as file:
+                file.write("")
+            print("[bold green]History cleared successfully![/bold green]")
+        except Exception as e:
+            print(f"[bold red]An error occurred while clearing history: {e}[/bold red]")
         

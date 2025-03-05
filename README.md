@@ -33,7 +33,9 @@ pip install --editable .
 
 ### 4️⃣ Try the application!
 ```bash
+aicli --help # print avaialble commands
 aicli meta
+
 ```
 
 ## ⚙️ Customization
